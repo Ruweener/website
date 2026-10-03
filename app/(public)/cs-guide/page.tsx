@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { Table, type TableData } from "@/components/ui/table";
 import Sidebar, { GuideTocBar } from "@/components/ui/sidebar";
+import GuideChat from "@/components/cs-guide/guide-chat";
 import durations from "@/data/courseDurations.json";
 import requirements from "@/data/programRequirements.json";
 import courses from "@/data/courses.json";
@@ -624,6 +625,7 @@ const Guide: React.FC = () => {
           </section>
         </div>
       </div>
+      <GuideChat />
     </main>
   );
 };
