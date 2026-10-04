@@ -99,24 +99,6 @@ Restart the dev server, open `/cs-guide` and click **Ask the guide**. With a key
 
 Getting a key: create one at [platform.claude.com](https://platform.claude.com) (API billing is separate from a Claude Pro subscription), add a few dollars of credit, and set a monthly spend limit. Use a short expiry for personal test keys.
 
-## Cost
-
-Each question sends the instructions plus the whole guide (~2,000 tokens) and gets back a short answer (capped at 600 tokens). Rough per-question cost:
-
-| Model             | Price (input / output per 1M tokens) | Prompt caching                                         | Per question  | Per 1,000 questions |
-| ----------------- | ------------------------------------ | ------------------------------------------------------ | ------------- | ------------------- |
-| claude-haiku-4-5  | $1 / $5                              | Never: Haiku needs 4,096+ tokens, the prompt is ~2,000 | ~$0.003–0.005 | ~$3–5               |
-| claude-sonnet-5-5 | $2 / $10                             | Yes (512-token minimum), for 5 min after each question | ~$0.002–0.01  | ~$2–10              |
-
-Sonnet's range depends on how often questions arrive within 5 minutes of each other (cache hits). The cost log shows the real numbers; `cacheRead > 0` means the cache was used. Prices as of 2026-09.
-
-## Before going live
-
-- [ ] Club-owned API key with a spend limit, owned by the exec team (not a personal key).
-- [ ] Wire `ANTHROPIC_API_KEY` (and `CS_GUIDE_CHAT_MODEL` if used) through deploys per [Adding an environment variable](CONTRIBUTING.md#adding-an-environment-variable): `.env.example`, `deploy/docker-compose.yml`, `komodo/deploy-context.mjs` as `[[BROCKCSC_ANTHROPIC_API_KEY]]`, plus the GitHub secret, a `sync_var` line in `deploy.yml` and the Komodo Variable. So far only `.env.local.example` lists it. Without the rest, production silently stays in demo mode.
-- [ ] Ask it 20–30 real student questions and check the answers against the calendar; tune `INSTRUCTIONS` as needed.
-- [ ] Optionally add the chat's spend to `lib/costs.ts` so it appears on the admin analytics page.
-
 ## Known limitations
 
 - Guide prose is duplicated between `page.tsx` and `content.ts`.
