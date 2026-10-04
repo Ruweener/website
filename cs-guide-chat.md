@@ -1,4 +1,4 @@
-can # CS Guide chat
+# CS Guide chat
 
 A floating **Ask the guide** panel on [`/cs-guide`](<app/(public)/cs-guide/page.tsx>) that answers student questions from the guide's own content and links the section it used.
 
