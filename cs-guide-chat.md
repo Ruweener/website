@@ -1,6 +1,6 @@
 can # CS Guide chat
 
-A floating **Ask the guide** panel on [`/cs-guide`](<../app/(public)/cs-guide/page.tsx>) that answers student questions from the guide's own content and links the section it used.
+A floating **Ask the guide** panel on [`/cs-guide`](<app/(public)/cs-guide/page.tsx>) that answers student questions from the guide's own content and links the section it used.
 
 It runs in two modes:
 
@@ -27,12 +27,12 @@ flowchart TD
 
 ## Files
 
-| File                                                                          | Role                                                          |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| [`components/cs-guide/guide-chat.tsx`](../components/cs-guide/guide-chat.tsx) | The widget: button, panel, messages, streaming, link handling |
-| [`app/api/cs-guide/chat/route.ts`](../app/api/cs-guide/chat/route.ts)         | Server route: rate limit, validation, Claude call, cost log   |
-| [`lib/cs-guide/content.ts`](../lib/cs-guide/content.ts)                       | The guide as plain text, one entry per page anchor            |
-| [`lib/cs-guide/mock.ts`](../lib/cs-guide/mock.ts)                             | Demo mode: keyword match against the guide sections           |
+| File                                                                       | Role                                                          |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| [`components/cs-guide/guide-chat.tsx`](components/cs-guide/guide-chat.tsx) | The widget: button, panel, messages, streaming, link handling |
+| [`app/api/cs-guide/chat/route.ts`](app/api/cs-guide/chat/route.ts)         | Server route: rate limit, validation, Claude call, cost log   |
+| [`lib/cs-guide/content.ts`](lib/cs-guide/content.ts)                       | The guide as plain text, one entry per page anchor            |
+| [`lib/cs-guide/mock.ts`](lib/cs-guide/mock.ts)                             | Demo mode: keyword match against the guide sections           |
 
 The page itself only gains an import and `<GuideChat />`.
 
@@ -113,7 +113,7 @@ Sonnet's range depends on how often questions arrive within 5 minutes of each ot
 ## Before going live
 
 - [ ] Club-owned API key with a spend limit, owned by the exec team (not a personal key).
-- [ ] Add `- ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}` to the app's `environment:` list in `deploy/docker-compose.yml` and set the value in the Komodo stack. Without it production silently stays in demo mode.
+- [ ] Wire `ANTHROPIC_API_KEY` (and `CS_GUIDE_CHAT_MODEL` if used) through deploys per [Adding an environment variable](CONTRIBUTING.md#adding-an-environment-variable): `.env.example`, `deploy/docker-compose.yml`, `komodo/deploy-context.mjs` as `[[BROCKCSC_ANTHROPIC_API_KEY]]`, plus the GitHub secret, a `sync_var` line in `deploy.yml` and the Komodo Variable. So far only `.env.local.example` lists it. Without the rest, production silently stays in demo mode.
 - [ ] Ask it 20–30 real student questions and check the answers against the calendar; tune `INSTRUCTIONS` as needed.
 - [ ] Optionally add the chat's spend to `lib/costs.ts` so it appears on the admin analytics page.
 

@@ -118,6 +118,11 @@ and anything over 200 characters, and stores **only path and timestamp** — no 
 or sessions. So the numbers are raw views, not unique visitors, bucketed in `America/Toronto`, not
 the server's timezone.
 
+**CS guide chat.** An "Ask the guide" panel on `/cs-guide` answers questions from the guide's own
+text via `/api/cs-guide/chat`. Without `ANTHROPIC_API_KEY` it runs a free demo mode that quotes the
+closest section. The guide prose in `lib/cs-guide/content.ts` mirrors the page, so edit both. How it
+works, cost and the go-live checklist: [cs-guide-chat.md](cs-guide-chat.md).
+
 ## Environment variables
 
 Documented in `.env.example` (production shape) and `.env.local.example` (the local subset).
@@ -150,6 +155,8 @@ Documented in `.env.example` (production shape) and `.env.local.example` (the lo
 | `UPLOAD_DIR`                           | prod only   | —                              | `/data/uploads` in the container, on the `brockcsc-uploads` volume                                                              |
 | `DOCUMENTS_DIR`                        | prod only   | `/data/documents`              | Bank/legal document library storage, never the `UPLOAD_DIR` volume; a fresh, per-Stack volume — see `deploy/docker-compose.yml` |
 | `PORT`                                 | no          | `3000`                         | Set by the Dockerfile                                                                                                           |
+| `ANTHROPIC_API_KEY`                    | no          | unset                          | **Secret.** Enables live answers in the CS guide chat; unset runs demo mode. Local only so far, see `cs-guide-chat.md`          |
+| `CS_GUIDE_CHAT_MODEL`                  | no          | `claude-haiku-4-5`             | Claude model for the CS guide chat                                                                                              |
 
 `MAIL_DAILY_LIMIT`, `MAIL_SITE_URL` and `ADMIN_MAIL_GROUP` are read by the code
 but are not in `.env.example` — they run on their defaults. Add them there to override one.
