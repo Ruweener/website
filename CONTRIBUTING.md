@@ -121,7 +121,7 @@ the server's timezone.
 **CS guide chat.** An "Ask the guide" panel on `/cs-guide` answers questions from the guide's own
 text via `/api/cs-guide/chat`. Without `ANTHROPIC_API_KEY` it runs a free demo mode that quotes the
 closest section. The guide prose in `lib/cs-guide/content.ts` mirrors the page, so edit both. How it
-works, cost and the go-live checklist: [cs-guide-chat.md](cs-guide-chat.md).
+works and how to run it: [cs-guide-chat.md](cs-guide-chat.md).
 
 ## Environment variables
 
